@@ -19,17 +19,20 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private UserMapper mapper;
 
+    @Override
     public UserResponseDto createUser(SaveUserDto newUserDto) {
         User newUser = mapper.toModel(newUserDto);
         return mapper.toDto(userRepository.save(newUser));
     }
 
+    @Override
     public List<UserResponseDto> getUsersByBirthDateRange(LocalDate from, LocalDate to) {
         return userRepository.getUsersByBirthDateBetween(from, to).stream()
                 .map(mapper::toDto)
                 .toList();
     }
 
+    @Override
     public UserResponseDto updateUser(Long id, SaveUserDto updateUserDto) {
         if (!userRepository.existsById(id)) {
             throw new EntityNotFoundException("User not found with ID: " + id);
@@ -54,7 +57,11 @@ public class UserServiceImpl implements UserService {
         return mapper.toDto(userRepository.save(user));
     }
 
+    @Override
     public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new EntityNotFoundException("User with id " + id + " not found.");
+        }
         userRepository.deleteById(id);
     }
 }
