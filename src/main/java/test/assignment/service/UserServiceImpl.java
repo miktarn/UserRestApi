@@ -46,7 +46,8 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto updatePartialUser(Long id,
                                              UserUpdatePartialDto userUpdatePartialDto) {
         User user = userRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("User not found with ID: " + id));
+                () -> new EntityNotFoundException("User not found with ID: " + id)
+        );
         userUpdatePartialDto.email().ifPresent(user::setEmail);
         userUpdatePartialDto.firstName().ifPresent(user::setFirstName);
         userUpdatePartialDto.lastName().ifPresent(user::setLastName);
