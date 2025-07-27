@@ -215,7 +215,7 @@ public class UserControllerTest {
                         Optional.empty(), Optional.empty(), Optional.empty(),
                         Optional.empty(), Optional.empty()), "email Invalid email format"),
                 arguments(new UserUpdatePartialDto(Optional.empty(), Optional.empty(),
-                        Optional.empty(), Optional.of(LocalDate.of(2025, 1, 1)),
+                        Optional.empty(), Optional.of(LocalDate.now().plusDays(1)),
                         Optional.empty(), Optional.empty()),
                         "birthDate Birth date must be in the past")
         );
